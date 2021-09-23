@@ -12,12 +12,14 @@ mkdir dataset-1B
 cd dataset-1B
 wget ftp://ftp.irisa.fr/local/texmex/corpus/bigann_query.bvecs.gz
 wget ftp://ftp.irisa.fr/local/texmex/corpus/bigann_gnd.tar.gz
+# This file is 98GB !
 wget ftp://ftp.irisa.fr/local/texmex/corpus/bigann_base.bvecs.gz
 ```
-2. Extract the dataset (requires 150GB additional)
+2. Extract the dataset (requires around 130GB additional)
 ```shell
 gzip -kd bigann_query.bvecs.gz
 tar -xf bigann_gnd.tar.gz
+# This extracted file is 132GB !
 gzip -kd bigann_base.bvecs.gz
 ```
 
