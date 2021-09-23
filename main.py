@@ -1,7 +1,6 @@
 import os.path
 
 import numpy as np
-from sklearn.preprocessing import normalize
 
 # When the data format is bvecs or fvecs, the amount of data to be written
 TOTAL_VECTOR_COUNT = 100000000
@@ -9,9 +8,6 @@ TOTAL_VECTOR_COUNT = 100000000
 CHUNK_SIZE = 100000
 
 QUERY_CHUNK_SIZE = 10000
-
-# Does the data need to be normalized before insertion
-IF_NORMALIZE = False
 
 
 def load_npy_data(filename):
@@ -21,7 +17,7 @@ def load_npy_data(filename):
 
 
 def check_extracted_data():
-    data_1B = load_npy_data("dataset-20M/vectors-0-99999.npy")
+    data_1B = load_npy_data("dataset-100M/vectors-0-99999.npy")
     print(data_1B[0])
 
     # This data is taken from https://github.com/milvus-io/bootcamp/blob/master/benchmark_test/lab1_sift1b_1m.md
@@ -58,8 +54,6 @@ def load_bvecs_data(base_len, idx, file_name):
     d = x[:4].view('int32')[0]
     data = x.reshape(-1, d + 4)[begin_num:(begin_num + base_len), 4:]
     data = (data + 0.5) / 255
-    if IF_NORMALIZE:
-        data = normalize(data)
     data = data.tolist()
     return data
 
@@ -96,7 +90,7 @@ def bvecs_query_to_npy(input_file_name, output_dir, output_file_name):
 
 # --------------
 # Extract chunks of data from 1B dataset
-OUTPUT_DIR = "dataset-20M"
+OUTPUT_DIR = "dataset-100M"
 create_output_dir(OUTPUT_DIR)
 bvecs_query_to_npy("dataset-1B/bigann_query.bvecs", OUTPUT_DIR, "queries")
 bvecs_to_chunks("dataset-1B/bigann_base.bvecs", OUTPUT_DIR, "vectors")
