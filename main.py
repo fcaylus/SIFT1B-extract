@@ -2,12 +2,13 @@ import os.path
 
 import numpy as np
 
-# When the data format is bvecs or fvecs, the amount of data to be written
+# Total size (in number of vectors) to extract from the dataset
 TOTAL_VECTOR_COUNT = 100000000
 # Output chunk size (in number of vectors)
 CHUNK_SIZE = 100000
-
 QUERY_CHUNK_SIZE = 10000
+
+OUTPUT_DIR = "dataset-100M"
 
 
 def load_npy_data(filename):
@@ -90,7 +91,6 @@ def bvecs_query_to_npy(input_file_name, output_dir, output_file_name):
 
 # --------------
 # Extract chunks of data from 1B dataset
-OUTPUT_DIR = "dataset-100M"
 create_output_dir(OUTPUT_DIR)
 bvecs_query_to_npy("dataset-1B/bigann_query.bvecs", OUTPUT_DIR, "queries")
 bvecs_to_chunks("dataset-1B/bigann_base.bvecs", OUTPUT_DIR, "vectors")
