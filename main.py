@@ -69,7 +69,8 @@ def bvecs_to_chunks(input_file_name, output_dir, file_name_prefix):
         print(f"Load chunk #{chunks_count + 1}: from {chunk_start} to {chunk_end}")
         chunk = load_bvecs_data(CHUNK_SIZE, chunks_count, input_file_name)
 
-        np.save(os.path.join(output_dir, f"{file_name_prefix}-{chunk_start}-{chunk_end}"), chunk)
+        output_file_name = f"{file_name_prefix}-{str(chunks_count).zfill(5)}-{chunk_start}-{chunk_end}"
+        np.save(os.path.join(output_dir, output_file_name), chunk)
         chunks_count = chunks_count + 1
         vectors_count = vectors_count + len(chunk)
 
